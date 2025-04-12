@@ -13,7 +13,7 @@ A Python-based benchmarking tool for optimizing Bitaxe mining performance by tes
 
 ## Prerequisites
 
-- Python 3.11 or higher
+- Python 3.10.12 or higher
 - Access to a Bitaxe miner on your network
 - Docker (optional, for containerized deployment)
 - Git (optional, for cloning the repository)
@@ -24,17 +24,14 @@ A Python-based benchmarking tool for optimizing Bitaxe mining performance by tes
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/mrv777/Bitaxe-Hashrate-Benchmark.git
+git clone https://github.com/thisismindo/Bitaxe-Hashrate-Benchmark.git
 cd Bitaxe-Hashrate-Benchmark
 ```
 
 2. Create and activate a virtual environment:
 ```bash
-python -m venv venv
-# On Windows
-venv\Scripts\activate
-# On Linux/Mac
-source venv/bin/activate
+# Pip
+pipenv shell --python 3.10
 ```
 
 3. Install dependencies:
@@ -61,7 +58,7 @@ python bitaxe_hashrate_benchmark.py <bitaxe_ip>
 
 Optional parameters:
 - `-v, --voltage`: Initial voltage in mV (default: 1150)
-- `-f, --frequency`: Initial frequency in MHz (default: 500)
+- `-f, --frequency`: Initial frequency in MHz (default: 525)
 
 Example:
 ```bash
@@ -85,16 +82,16 @@ docker run --rm bitaxe-benchmark 192.168.2.26 -v 1200 -f 550
 
 The script includes several configurable parameters:
 
-- Maximum chip temperature: 66°C
-- Maximum VR temperature: 86°C
+- Maximum chip temperature: 65°C
+- Maximum VR temperature: 75°C
 - Maximum allowed voltage: 1400mV
-- Minimum allowed voltage: 1000mV
-- Maximum allowed frequency: 1200MHz
-- Maximum power consumption: 40W
-- Minimum allowed frequency: 400MHz
+- Minimum allowed voltage: 1150mV
+- Maximum allowed frequency: 1250MHz
+- Maximum power consumption: 45W
+- Minimum allowed frequency: 525MHz
 - Minimum input voltage: 4800mV
 - Maximum input voltage: 5500mV
-- Benchmark duration: 10 minutes
+- Benchmark duration: 2.5 minutes
 - Sample interval: 15 seconds
 - **Minimum required samples: 7** (for valid data processing)
 - Voltage increment: 20mV
@@ -116,10 +113,10 @@ The benchmark results are saved to `bitaxe_benchmark_results_<ip_address>.json`,
 
 ## Safety Features
 
-- Automatic temperature monitoring with safety cutoff (66°C chip temp)
-- Voltage regulator (VR) temperature monitoring with safety cutoff (86°C)
+- Automatic temperature monitoring with safety cutoff (65°C chip temp)
+- Voltage regulator (VR) temperature monitoring with safety cutoff (75°C)
 - Input voltage monitoring with minimum threshold (4800mV) and maximum threshold (5500mV)
-- Power consumption monitoring with safety cutoff (40W)
+- Power consumption monitoring with safety cutoff (45W)
 - Temperature validation (must be above 5°C)
 - Graceful shutdown on interruption (Ctrl+C)
 - Automatic reset to best performing settings after benchmarking
