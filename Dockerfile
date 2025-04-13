@@ -4,14 +4,11 @@ FROM python:3.10.12-slim
 # Set working directory
 WORKDIR /app
 
-# Copy requirements first to leverage Docker cache
-COPY requirements.txt .
+COPY . .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the script
-COPY bitaxe_hashrate_benchmark.py .
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r src/requirements.txt
 
 # Set the entrypoint
 ENTRYPOINT ["python", "bitaxe_hashrate_benchmark.py"]
