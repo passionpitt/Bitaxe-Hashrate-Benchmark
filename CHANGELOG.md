@@ -32,3 +32,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 04/12/2025
 - Added `CHANGELOG.md`
 - implemented some improvements
+- added pylint
+- implemented benchmark service

@@ -1,3 +1,5 @@
+"""Constants
+"""
 # CONFIGURATIONS
 VOLTAGE_INCREMENT: int = 20
 FREQUENCY_INCREMENT: int = 25
@@ -18,3 +20,13 @@ GREEN = "\033[92m"
 YELLOW = "\033[93m"
 RED = "\033[91m"
 RESET = "\033[0m"
+
+SMALL_CORE_COUNT = None
+ASIC_COUNT = None
+DEFAULT_VOLTAGE = None
+DEFAULT_FREQUENCY = None
+
+# Add a global flag to track whether the system has already been reset
+SYSTEM_RESET_DONE: bool = False
+# Check if we're handling an interrupt (Ctrl+C)
+HANDLING_INTERRUPT: bool = False

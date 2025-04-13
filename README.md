@@ -36,14 +36,14 @@ pipenv shell --python 3.10
 
 3. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 ```
 
 ### Docker Installation
 
 1. Build the Docker image:
 ```bash
-docker build -t bitaxe-benchmark .
+make build
 ```
 
 ## Usage
@@ -62,7 +62,7 @@ Optional parameters:
 
 Example:
 ```bash
-python bitaxe_hashrate_benchmark.py 192.168.2.29 -v 1175 -f 775
+python bitaxe_hashrate_benchmark.py 192.168.1.10 -v 1175 -f 775
 ```
 
 ### Docker Usage (Optional)
@@ -70,12 +70,12 @@ python bitaxe_hashrate_benchmark.py 192.168.2.29 -v 1175 -f 775
 Run the container with your Bitaxe's IP address:
 
 ```bash
-docker run --rm bitaxe-benchmark <bitaxe_ip> [options]
+make run ip=<bitaxe_ip> v=<int> f=<int>
 ```
 
 Example:
 ```bash
-docker run --rm bitaxe-benchmark 192.168.2.26 -v 1200 -f 550
+make run ip=192.168.1.10 v=1200 f=550
 ```
 
 ## Configuration
