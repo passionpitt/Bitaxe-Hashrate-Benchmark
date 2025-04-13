@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed whitespace
 - moved configuration to `constants.py`
 - always download the latest `requests`
+- updated project structure
+- updated Dockerfile
 
 ### Added
 04/12/2025
@@ -34,3 +36,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - implemented some improvements
 - added pylint
 - implemented benchmark service
+- implemented `Makefile` for `build` and `run` commands
