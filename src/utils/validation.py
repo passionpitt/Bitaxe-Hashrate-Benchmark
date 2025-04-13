@@ -17,6 +17,7 @@ def validate_parameters(initial_voltage, initial_frequency, benchmark_time, samp
             f"Initial voltage exceeds the maximum allowed value of "
             f"{MAX_ALLOWED_VOLTAGE} mV."
         )
+
     if initial_voltage < MIN_ALLOWED_VOLTAGE:
         error(
             f"Initial voltage is below the minimum allowed value of "

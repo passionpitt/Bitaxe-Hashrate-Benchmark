@@ -2,9 +2,9 @@
 FROM python:3.10.12-slim
 
 # Set working directory
-WORKDIR /src
+WORKDIR /app
 
-COPY . /src
+COPY . .
 
 # Install dependencies
 RUN pip install --upgrade pip
