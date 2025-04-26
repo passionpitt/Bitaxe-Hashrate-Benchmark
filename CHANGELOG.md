@@ -31,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated Dockerfile
 
 ### Added
+04/26/2025
+- implemented results_service and system_service
+- added pylint configuration
+
 04/12/2025
 - Added `CHANGELOG.md`
 - implemented some improvements

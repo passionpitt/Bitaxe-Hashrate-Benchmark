@@ -1,31 +1,33 @@
 """
 BenchmarkService: Handles benchmarking of Bitaxe mining devices based on system stats.
 """
-
 import time
 from src.constants import (
     GREEN, RED, RESET,
     MAX_TEMP, MAX_VR_TEMP,
     MIN_INPUT_VOLTAGE, MAX_INPUT_VOLTAGE,
-    MAX_POWER, BENCHMARK_TIME, SAMPLE_INTERVAL,
-    SMALL_CORE_COUNT, ASIC_COUNT
+    MAX_POWER, BENCHMARK_TIME, SAMPLE_INTERVAL
 )
 
 class BenchmarkService:
     """
     Provides methods to run performance benchmarks on Bitaxe devices.
     """
-    def __init__(self, get_system_info):
+    def __init__(self, get_system_info, small_core_count=0, asic_count=0):
         """
-        Initialize with system info callable.
+        Initialize with system info callable and core counts.
 
         :param get_system_info: Callable that returns system info from the Bitaxe device.
+        :param small_core_count: Number of small cores per ASIC.
+        :param asic_count: Number of ASICs.
         """
         self.get_system_info = get_system_info
         self.total_samples = BENCHMARK_TIME // SAMPLE_INTERVAL
+        self.small_core_count = small_core_count
+        self.asic_count = asic_count
         self.expected_hashrate = lambda freq: freq * (
-            (SMALL_CORE_COUNT * ASIC_COUNT) / 1000
-        )
+            (self.small_core_count * self.asic_count) / 1000
+        ) if self.small_core_count and self.asic_count else lambda freq: 0
 
     def run_benchmark(self, core_voltage, frequency):
         """
@@ -63,7 +65,7 @@ class BenchmarkService:
         current_time = time.strftime("%H:%M:%S")
         print(
             f"{GREEN}[{current_time}] Starting benchmark for Core Voltage: "
-            f"{core_voltage}mV, Frequency: {frequency}MHz{RESET}"
+            f"{core_voltage}mV, Frequency: {frequency}MHz{RESET}", flush=True
         )
 
     def _collect_samples(self, core_voltage, frequency):
@@ -170,7 +172,7 @@ class BenchmarkService:
         ]
         if 'vrTemp' in info:
             parts.append(f"VR: {int(info['vrTemp'])}°C")
-        print(" | ".join(parts) + RESET)
+        print(" | ".join(parts) + RESET, flush=True)
 
     def _calculate_results(self, samples, expected):
         """
@@ -204,11 +206,11 @@ class BenchmarkService:
         within_tolerance = avg_hash >= expected * 0.94
 
         print(f"{GREEN}Average Hashrate: {avg_hash:.2f} GH/s "
-              f"(Expected: {expected:.2f}){RESET}")
-        print(f"{GREEN}Average Temp: {avg_temp:.2f}°C{RESET}")
+              f"(Expected: {expected:.2f}){RESET}", flush=True)
+        print(f"{GREEN}Average Temp: {avg_temp:.2f}°C{RESET}", flush=True)
         if avg_vr is not None:
-            print(f"{GREEN}Average VR Temp: {avg_vr:.2f}°C{RESET}")
-        print(f"{GREEN}Efficiency: {efficiency:.2f} J/TH{RESET}")
+            print(f"{GREEN}Average VR Temp: {avg_vr:.2f}°C{RESET}", flush=True)
+        print(f"{GREEN}Efficiency: {efficiency:.2f} J/TH{RESET}", flush=True)
 
         return avg_hash, avg_temp, efficiency, within_tolerance, avg_vr, None
 
@@ -221,5 +223,5 @@ class BenchmarkService:
         :param color: Color code for the output (default RED).
         :return: Tuple indicating failure.
         """
-        print(color + message + RESET)
+        print(color + message + RESET, flush=True)
         return None, None, None, False, None, reason
