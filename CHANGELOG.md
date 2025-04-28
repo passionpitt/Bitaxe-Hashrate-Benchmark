@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Bugs/Hotfix
 
 ### Updated
+04/27/2025
+- moved constant to config
+
 04/12/2025
 - downgraded `python` image to `v3.10.12-slim`
 - reduced `benchmark_time` to `150` (2.5 minutes)
@@ -31,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated Dockerfile
 
 ### Added
+04/28/2025
+- implemented unit test with coverage for services' class
+
 04/26/2025
 - implemented results_service and system_service
 - added pylint configuration

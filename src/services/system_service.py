@@ -3,7 +3,7 @@
 import time
 import requests
 from requests.exceptions import RequestException
-from src.constants import (
+from src.config.constants import (
     MIN_ALLOWED_VOLTAGE, MIN_ALLOWED_FREQUENCY, GREEN, YELLOW, RED, RESET
 )
 

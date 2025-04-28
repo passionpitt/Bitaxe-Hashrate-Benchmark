@@ -1,7 +1,7 @@
 """Results service
 """
 import json
-from src.constants import GREEN, RED, RESET
+from src.config.constants import GREEN, RED, RESET
 
 class ResultsService:
     """Results service class

@@ -6,7 +6,7 @@ from src.utils.argument_parser import parse_arguments
 from src.services.benchmark_service import BenchmarkService
 from src.services.system_service import SystemService
 from src.services.results_service import ResultsService
-from src.constants import (
+from src.config.constants import (
     VOLTAGE_INCREMENT, FREQUENCY_INCREMENT, BENCHMARK_TIME,
     SAMPLE_INTERVAL, MAX_ALLOWED_VOLTAGE, MAX_ALLOWED_FREQUENCY,
     GREEN, YELLOW, RED, RESET, SYSTEM_RESET_DONE, HANDLING_INTERRUPT
