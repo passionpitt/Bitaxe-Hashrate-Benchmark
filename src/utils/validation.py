@@ -1,6 +1,6 @@
 """Validation utilities for benchmark parameters."""
 
-from src.constants import (
+from src.config.constants import (
     RED, RESET, MAX_ALLOWED_FREQUENCY,
     MAX_ALLOWED_VOLTAGE, MIN_ALLOWED_FREQUENCY,
     MIN_ALLOWED_VOLTAGE

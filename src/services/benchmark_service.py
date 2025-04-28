@@ -2,7 +2,7 @@
 BenchmarkService: Handles benchmarking of Bitaxe mining devices based on system stats.
 """
 import time
-from src.constants import (
+from src.config.constants import (
     GREEN, RED, RESET,
     MAX_TEMP, MAX_VR_TEMP,
     MIN_INPUT_VOLTAGE, MAX_INPUT_VOLTAGE,

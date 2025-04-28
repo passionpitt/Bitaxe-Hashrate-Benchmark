@@ -78,6 +78,16 @@ Example:
 make run ip=192.168.1.10 v=1200 f=550
 ```
 
+### Linting
+```bash
+pylint src/
+```
+
+### Unit test
+```bash
+pytest tests/ --cov=src/ --cov-report=term-missing --cov-fail-under=80 -v
+```
+
 ## Configuration
 
 The script includes several configurable parameters:
