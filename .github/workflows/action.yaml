@@ -37,7 +37,7 @@ jobs:
         pylint src/
     - name: Run pytest
       run: |
-        pytest tests/ --cov=src/ --cov-report=term-missing --cov-report=xml --cov-fail-under=80 --junitxml=pytest.xml -v > pytest-coverage.txt
+        pytest tests/ --cov=src/ --cov-report=term-missing --cov-report=xml --cov-fail-under=90 --junitxml=pytest.xml -v > pytest-coverage.txt
     - name: Pytest coverage comment
       if: github.event_name == 'pull_request'
       uses: MishaKav/pytest-coverage-comment@main
