@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Bugs/Hotfix
 
 ### Updated
+04/30/2025
+- increased test coverage to 90%
+
 04/27/2025
 - moved constant to config
 
@@ -34,6 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated Dockerfile
 
 ### Added
+04/30/2025
+- implemented test for utils' classes
+
 04/28/2025
 - implemented unit test with coverage for services' class
 

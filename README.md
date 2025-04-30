@@ -85,7 +85,7 @@ pylint src/
 
 ### Unit test
 ```bash
-pytest tests/ --cov=src/ --cov-report=term-missing --cov-fail-under=80 -v
+pytest tests/ --cov=src/ --cov-report=term-missing --cov-fail-under=90 -v
 ```
 
 ## Configuration
