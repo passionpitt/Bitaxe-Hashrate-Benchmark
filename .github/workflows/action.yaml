@@ -49,6 +49,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     needs:
       - build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     strategy:
       matrix:
         os: ["ubuntu-latest"]
