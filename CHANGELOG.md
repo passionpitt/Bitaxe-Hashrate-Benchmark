@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Work In Progress
 
 ### Bugs/Hotfix
+05/04/2025
+- fixed linting [errors](https://github.com/thisismindo/Bitaxe-Hashrate-Benchmark/actions/runs/14823582460/job/41613792239?pr=7#step:5:22)
 
 ### Updated
 04/30/2025
@@ -37,6 +39,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated Dockerfile
 
 ### Added
+05/04/2025
+- added bitaxe benchmark service class
+- implemented bitaxe benchmark service class test
+
 04/30/2025
 - implemented test for utils' classes
 
