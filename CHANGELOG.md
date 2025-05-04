@@ -37,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated Dockerfile
 
 ### Added
+05/04/2025
+- added bitaxe benchmark service class
+- implemented bitaxe benchmark service class test
+
 04/30/2025
 - implemented test for utils' classes
 
