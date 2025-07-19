@@ -106,11 +106,11 @@ class BitaxeBenchmark:
             result = benchmark.benchmark_iteration(current_voltage, current_frequency)
 
             print(YELLOW + f"Benchmark result: {result}" + RESET, flush=True)
-            
+
             if not self._process_benchmark_result(result, current_voltage, current_frequency):
                 print(GREEN + "Reached thermal or stability limits. Stopping further testing." + RESET, flush=True)
                 break
-                
+
             adjustment_result = self._adjust_parameters_based_on_result(result, current_voltage, current_frequency)
             if adjustment_result is None:
                 break
@@ -146,19 +146,16 @@ class BitaxeBenchmark:
                 current_frequency += FREQUENCY_INCREMENT
                 print(YELLOW + f"Increasing frequency to {current_frequency}MHz" + RESET, flush=True)
                 return current_voltage, current_frequency
-            else:
-                print(YELLOW + "Reached max frequency. Stopping." + RESET, flush=True)
-                return None
-        else:
-            if current_voltage + VOLTAGE_INCREMENT <= MAX_ALLOWED_VOLTAGE:
-                current_voltage += VOLTAGE_INCREMENT
-                current_frequency -= FREQUENCY_INCREMENT
-                print(YELLOW + f"Hashrate too low. Decreasing frequency to {current_frequency}MHz "
-                               f"and increasing voltage to {current_voltage}mV" + RESET, flush=True)
-                return current_voltage, current_frequency
-            else:
-                print(YELLOW + "Reached max voltage. Stopping." + RESET, flush=True)
-                return None
+            print(YELLOW + "Reached max frequency. Stopping." + RESET, flush=True)
+            return None
+        if current_voltage + VOLTAGE_INCREMENT <= MAX_ALLOWED_VOLTAGE:
+            current_voltage += VOLTAGE_INCREMENT
+            current_frequency -= FREQUENCY_INCREMENT
+            print(YELLOW + f"Hashrate too low. Decreasing frequency to {current_frequency}MHz "
+                           f"and increasing voltage to {current_voltage}mV" + RESET, flush=True)
+            return current_voltage, current_frequency
+        print(YELLOW + "Reached max voltage. Stopping." + RESET, flush=True)
+        return None
 
     def run(self):
         """Run the benchmarking process."""
