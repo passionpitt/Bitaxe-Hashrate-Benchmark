@@ -98,7 +98,7 @@ class BitaxeBenchmark:
 
     def _run_benchmark_loop(self, benchmark, current_voltage, current_frequency):
         """Run the benchmark loop and return results."""
-        while current_voltage <= MAX_ALLOWED_VOLTAGE and current_frequency <= MAX_ALLOWED_FREQUENCY:
+        while self._should_continue_benchmark(current_voltage, current_frequency):
             print(YELLOW + f"Setting system settings: voltage={current_voltage}mV, frequency={current_frequency}MHz" +
                   RESET, flush=True)
             self.system_service.set_system_settings(current_voltage, current_frequency)
@@ -106,41 +106,59 @@ class BitaxeBenchmark:
             result = benchmark.benchmark_iteration(current_voltage, current_frequency)
 
             print(YELLOW + f"Benchmark result: {result}" + RESET, flush=True)
-            if all(v is not None for v in [result[0], result[1], result[2]]):
-                result_dict = {
-                    "coreVoltage": current_voltage,
-                    "frequency": current_frequency,
-                    "averageHashRate": result[0],
-                    "averageTemperature": result[1],
-                    "efficiencyJTH": result[2]
-                }
-                if result[4] is not None:
-                    result_dict["averageVRTemp"] = result[4]
-
-                self.results.append(result_dict)
-
-                if result[3]:  # hashrate_ok
-                    if current_frequency + FREQUENCY_INCREMENT <= MAX_ALLOWED_FREQUENCY:
-                        current_frequency += FREQUENCY_INCREMENT
-                        print(YELLOW + f"Increasing frequency to {current_frequency}MHz" + RESET, flush=True)
-                    else:
-                        print(YELLOW + "Reached max frequency. Stopping." + RESET, flush=True)
-                        break
-                else:
-                    if current_voltage + VOLTAGE_INCREMENT <= MAX_ALLOWED_VOLTAGE:
-                        current_voltage += VOLTAGE_INCREMENT
-                        current_frequency -= FREQUENCY_INCREMENT
-                        print(YELLOW + f"Hashrate too low. Decreasing frequency to {current_frequency}MHz "
-                                       f"and increasing voltage to {current_voltage}mV" + RESET, flush=True)
-                    else:
-                        print(YELLOW + "Reached max voltage. Stopping." + RESET, flush=True)
-                        break
-            else:
+            
+            if not self._process_benchmark_result(result, current_voltage, current_frequency):
                 print(GREEN + "Reached thermal or stability limits. Stopping further testing." + RESET, flush=True)
                 break
+                
+            adjustment_result = self._adjust_parameters_based_on_result(result, current_voltage, current_frequency)
+            if adjustment_result is None:
+                break
+            current_voltage, current_frequency = adjustment_result
 
             print(YELLOW + "Saving results..." + RESET, flush=True)
             self.results_service.save_results(self.results)
+
+    def _should_continue_benchmark(self, current_voltage, current_frequency):
+        """Check if benchmark should continue based on voltage and frequency limits."""
+        return current_voltage <= MAX_ALLOWED_VOLTAGE and current_frequency <= MAX_ALLOWED_FREQUENCY
+
+    def _process_benchmark_result(self, result, current_voltage, current_frequency):
+        """Process benchmark result and add to results list. Returns True if processing succeeded."""
+        if all(v is not None for v in [result[0], result[1], result[2]]):
+            result_dict = {
+                "coreVoltage": current_voltage,
+                "frequency": current_frequency,
+                "averageHashRate": result[0],
+                "averageTemperature": result[1],
+                "efficiencyJTH": result[2]
+            }
+            if result[4] is not None:
+                result_dict["averageVRTemp"] = result[4]
+            self.results.append(result_dict)
+            return True
+        return False
+
+    def _adjust_parameters_based_on_result(self, result, current_voltage, current_frequency):
+        """Adjust voltage and frequency based on benchmark result. Returns new (voltage, frequency) or None to stop."""
+        if result[3]:  # hashrate_ok
+            if current_frequency + FREQUENCY_INCREMENT <= MAX_ALLOWED_FREQUENCY:
+                current_frequency += FREQUENCY_INCREMENT
+                print(YELLOW + f"Increasing frequency to {current_frequency}MHz" + RESET, flush=True)
+                return current_voltage, current_frequency
+            else:
+                print(YELLOW + "Reached max frequency. Stopping." + RESET, flush=True)
+                return None
+        else:
+            if current_voltage + VOLTAGE_INCREMENT <= MAX_ALLOWED_VOLTAGE:
+                current_voltage += VOLTAGE_INCREMENT
+                current_frequency -= FREQUENCY_INCREMENT
+                print(YELLOW + f"Hashrate too low. Decreasing frequency to {current_frequency}MHz "
+                               f"and increasing voltage to {current_voltage}mV" + RESET, flush=True)
+                return current_voltage, current_frequency
+            else:
+                print(YELLOW + "Reached max voltage. Stopping." + RESET, flush=True)
+                return None
 
     def run(self):
         """Run the benchmarking process."""

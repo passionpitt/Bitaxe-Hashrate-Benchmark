@@ -141,7 +141,7 @@ def test_benchmark_iteration_valid_data(benchmark_service, mock_system_info):
             avg_hash, avg_temp, efficiency, within_tolerance, avg_vr, reason = result
             assert avg_hash == 1000
             assert avg_temp == 60
-            assert efficiency == 50 / (1000 / 1000)
+            assert efficiency == 50 / 1
             assert within_tolerance
             assert avg_vr == 50
             assert reason is None
