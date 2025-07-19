@@ -171,3 +171,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ## Disclaimer
 
 Please use this tool responsibly. Overclocking and voltage modifications can potentially damage your hardware if not done carefully. Always ensure proper cooling and monitor your device during benchmarking.
+# Trigger workflow after disabling SonarCloud Automatic Analysis
