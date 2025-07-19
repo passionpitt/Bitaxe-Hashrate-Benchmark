@@ -7,8 +7,8 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r src/requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r src/requirements.txt
 
 # Set the entrypoint
 ENTRYPOINT ["python", "bitaxe_hashrate_benchmark.py"]

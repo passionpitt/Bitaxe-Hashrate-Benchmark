@@ -221,7 +221,7 @@ def test_run_valid_result_hashrate_ok(capsys, bitaxe_benchmark):
         assert bitaxe_benchmark.results[0]["frequency"] == 525
         assert bitaxe_benchmark.results[0]["averageHashRate"] == 100
         assert bitaxe_benchmark.results[0]["averageTemperature"] == 50
-        assert bitaxe_benchmark.results[0]["efficiencyJTH"] == 0.5
+        assert bitaxe_benchmark.results[0]["efficiencyJTH"] == pytest.approx(0.5)
         assert bitaxe_benchmark.results[0]["averageVRTemp"] == 45
 
 def test_run_valid_result_hashrate_not_ok(capsys, bitaxe_benchmark):
@@ -270,7 +270,7 @@ def test_run_valid_result_hashrate_not_ok(capsys, bitaxe_benchmark):
         assert bitaxe_benchmark.results[0]["frequency"] == 525
         assert bitaxe_benchmark.results[0]["averageHashRate"] == 100
         assert bitaxe_benchmark.results[0]["averageTemperature"] == 50
-        assert bitaxe_benchmark.results[0]["efficiencyJTH"] == 0.5
+        assert bitaxe_benchmark.results[0]["efficiencyJTH"] == pytest.approx(0.5)
         assert bitaxe_benchmark.results[0]["averageVRTemp"] == 45
 
 def test_run_max_frequency(capsys, bitaxe_benchmark):

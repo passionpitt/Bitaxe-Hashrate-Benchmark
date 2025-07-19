@@ -54,9 +54,9 @@ def test_fetch_default_settings_success(system_service, mock_requests_get):
         assert system_service.asic_count == 2
         mocked_print.assert_called_with(
             GREEN + "Current settings determined:\n"
-                    f"  Core Voltage: 1200mV\n"
-                    f"  Frequency: 500MHz\n"
-                    f"  ASIC Configuration: 200 total cores" + RESET
+                    "  Core Voltage: 1200mV\n"
+                    "  Frequency: 500MHz\n"
+                    "  ASIC Configuration: 200 total cores" + RESET
         )
 
 def test_fetch_default_settings_request_exception(system_service, mock_requests_get):

@@ -68,12 +68,12 @@ def test_format_results_with_vr_temp(sample_results):
     assert formatted["all_results"] == sample_results
     assert len(formatted["top_performers"]) == 3
     assert formatted["top_performers"][0]["rank"] == 1
-    assert formatted["top_performers"][0]["averageHashRate"] == 1000.0
-    assert formatted["top_performers"][2]["averageHashRate"] == 800.0
+    assert formatted["top_performers"][0]["averageHashRate"] == pytest.approx(1000.0)
+    assert formatted["top_performers"][2]["averageHashRate"] == pytest.approx(800.0)
     assert len(formatted["most_efficient"]) == 3
     assert formatted["most_efficient"][0]["rank"] == 1
-    assert formatted["most_efficient"][0]["efficiencyJTH"] == 40.0
-    assert formatted["most_efficient"][2]["efficiencyJTH"] == 50.0
+    assert formatted["most_efficient"][0]["efficiencyJTH"] == pytest.approx(40.0)
+    assert formatted["most_efficient"][2]["efficiencyJTH"] == pytest.approx(50.0)
 
 def test_format_results_fewer_than_five():
     service = ResultsService("http://192.168.1.100")
