@@ -11,6 +11,28 @@ on:
       - main
 
 jobs:
+  sonarqube:
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+          path: "src/requirements.txt"
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+
   build:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -49,6 +71,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     needs:
       - build
+      - sonarqube
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     strategy:
       matrix:
